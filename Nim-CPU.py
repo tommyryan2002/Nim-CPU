@@ -161,6 +161,8 @@ while gameOver != True:
         break
     if sum(rowsasList) <= 1 and playerTurn:
         gameOver = True
+        print("current rows: ")
+        print(" ",rowsasList)
         print("GG I win")
         break
     elif playerTurn != True:
@@ -168,6 +170,7 @@ while gameOver != True:
         findoptimalMove()
         #print(" ", rowsasList)
         playerTurn = True
+        turnCount += 1
     
     elif playerTurn:
         print("current rows: ")
@@ -176,16 +179,19 @@ while gameOver != True:
             try:
                 rowTake = int(input("Which row do you want to take from [1, 2, or 3]: "))
                 numTake = int(input("How many do you wish to take: "))
-                break
+                if rowTake < 1 or rowTake > 3:
+                    print("You can't do that! Try again.")
+                elif numTake > rowsasList[rowTake -1] or (numTake < 1):
+                    print("You can't do that! Try again.")
+                else:
+                    rowsasList[(rowTake - 1)] -= numTake
+                    print("current rows: ")
+                    print(" ",rowsasList)
+                    playerTurn = False
+                    turnCount += 1
+                    break
             except:
                 print("Invalid Input, try again!")
-        if numTake > rowsasList[rowTake -1] or (numTake < 1):
-            print("You can't do that! Try again.")
-        else:
-            rowsasList[(rowTake - 1)] -= numTake
-            print("current rows: ")
-            print(" ",rowsasList)
-            playerTurn = False
-        turnCount += 1
+        
     
 
